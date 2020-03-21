@@ -2,6 +2,7 @@ package com.joseluisgs.productosapirest.modelos;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @Data
 // Nos hace automaticamente:  A shortcut for @ToString, @EqualsAndHashCode, @Getter on all fields, and @Setter on all non-final fields, and @RequiredArgsConstructor
 
+@Builder // patron builder
 @NoArgsConstructor
 @AllArgsConstructor
 //Constructors made to order: Generates constructors that take no arguments, one argument per final / non-nullfield, or one argument for every field.

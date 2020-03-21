@@ -5,7 +5,10 @@ import com.joseluisgs.productosapirest.dto.ProductoDTO;
 import com.joseluisgs.productosapirest.modelos.Producto;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.PropertyMap;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.PostConstruct;
 
 @Component
 @RequiredArgsConstructor // Nos ahorramos el autowire
@@ -14,16 +17,16 @@ public class ProductoDTOConverter {
     private final ModelMapper modelMapper;
 
 
-//	@PostConstruct
-//	public void init() {
-//		modelMapper.addMappings(new PropertyMap<Producto, ProductoDTO>() {
-//
-//			@Override
-//			protected void configure() {
-//				map().setCategoria(source.getCategoria().getNombre());
-//			}
-//		});
-//	}
+    @PostConstruct
+    public void init() {
+        modelMapper.addMappings(new PropertyMap<Producto, ProductoDTO>() {
+
+            @Override
+            protected void configure() {
+                map().setCategoria(source.getCategoria().getNombre());
+            }
+        });
+    }
 
     // Recibe un producto y lo trasforma en productoDTO
     public ProductoDTO convertToDto(Producto producto) {
