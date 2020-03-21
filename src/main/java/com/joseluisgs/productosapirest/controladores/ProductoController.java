@@ -10,21 +10,24 @@ import com.joseluisgs.productosapirest.error.ProductoNotFoundException;
 import com.joseluisgs.productosapirest.modelos.Producto;
 import com.joseluisgs.productosapirest.servicios.CategoriaServicio;
 import com.joseluisgs.productosapirest.servicios.ProductoServicio;
-import com.joseluisgs.productosapirest.upload.StorageService;
+import com.joseluisgs.productosapirest.utils.pagination.PaginationLinksUtils;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 // Indicamos que es un controlador de tipo Rest
@@ -37,10 +40,10 @@ public class ProductoController {
 
 
     //@Autowired // No es necesario el @Autowired por la notacion @RequiredArgsConstructor, pero pon el final
-    private final CategoriaServicio categoriaServicio;
     private final ProductoServicio productoServicio;
     private final ProductoDTOConverter productoDTOConverter;
-    private final StorageService storageService;
+    private final PaginationLinksUtils paginationLinksUtils;
+    private final CategoriaServicio categoriaServicio;
 
     /**
      * Lista todos los productos
@@ -60,6 +63,7 @@ public class ProductoController {
             @ApiResponse(code = 404, message = "Not Found", response = ApiError.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = ApiError.class)
     })
+    /*
     @GetMapping("/productos")
     public ResponseEntity<?> obetenerTodos() {
         List<Producto> result = productoServicio.findAll();
@@ -70,6 +74,36 @@ public class ProductoController {
                     .collect(Collectors.toList());
             return ResponseEntity.ok(dtoList);
         }
+    }
+    */
+
+    // Código del listado con páginas
+    @GetMapping("/productos")
+    public ResponseEntity<?> obtenerTodos(
+            @PageableDefault(size = 10, page = 0) Pageable pageable, // Indicamos que devolvemos una paginas e indicamos los campos por defecto
+            HttpServletRequest request // La petición http para tenerla en cuenta a la hora de procesar el enlace
+    ) {
+
+
+        Page<Producto> result = productoServicio.findAll(pageable); // Paginas de producto
+
+        if (pageable.getPageNumber() > result.getTotalPages())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No existe esa página o pagina superior al límete: " + result.getTotalPages());
+
+        if (result.isEmpty())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No hay productos registrados");
+        else {
+
+            // Creamos la pagina con los productos convertidos
+            Page<ProductoDTO> dtoList = result.map(productoDTOConverter::convertToDto);
+            // Cabecera de Link en base a la cabecera actual
+            UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(request.getRequestURL().toString());
+            // Deveolvemos con un encabezdo con enlaces creados y los resultados
+            return ResponseEntity.ok().header("link", paginationLinksUtils.createLinkHeader(dtoList, uriBuilder))
+                    .body(dtoList);
+
+        }
+
     }
 
 

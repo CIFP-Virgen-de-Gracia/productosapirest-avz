@@ -2,7 +2,7 @@
 Ejemplo de como hacer un API REST en Springboot con temas avanzados
 
 ## Tecnologías
-* H2 como base de datos para que quien lo quiera no usar MySQL, luego lo cambiaré
+* H2 como base de datos embebida
 * Lombok para potenciar las anotaciones: https://projectlombok.org/features/all
 
 
