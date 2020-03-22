@@ -307,7 +307,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/productos?page=1",
+					"raw": "http://localhost:8080/api/productos?page=1&size=5",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -321,6 +321,70 @@
 						{
 							"key": "page",
 							"value": "1"
+						},
+						{
+							"key": "size",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar productos busqueda",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/productos?nombre=ora",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"productos"
+					],
+					"query": [
+						{
+							"key": "nombre",
+							"value": "ora"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar productos busqueda y paginado",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/productos?nombre=ora&size=5&page=0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"productos"
+					],
+					"query": [
+						{
+							"key": "nombre",
+							"value": "ora"
+						},
+						{
+							"key": "size",
+							"value": "5"
+						},
+						{
+							"key": "page",
+							"value": "0"
 						}
 					]
 				}
