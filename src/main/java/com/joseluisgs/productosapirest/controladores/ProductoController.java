@@ -29,6 +29,7 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Optional;
 
 @RestController
 // Indicamos que es un controlador de tipo Rest
@@ -57,80 +58,110 @@ public class ProductoController {
     // Pero es bueno tenerlo en cuenta si tenemos en otro serviror una app en angular o similar
     // Pero es inviable para API consumida por muchos terceros. // Debes probar con un cliente desde ese puerto
     // Mejor hacer un filtro, ver MyConfig.java
-
     @ApiOperation(value = "Obtiene una lista de productos", notes = "Obtiene una lista de productos")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = Producto.class),
             @ApiResponse(code = 404, message = "Not Found", response = ApiError.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = ApiError.class)
     })
-    /*
-    @GetMapping("/productos")
-    public ResponseEntity<?> obetenerTodos() {
-        List<Producto> result = productoServicio.findAll();
-        if (result.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No hay productos registrados");
-        } else {
-            List<ProductoDTO> dtoList = result.stream().map(productoDTOConverter::convertToDto)
-                    .collect(Collectors.toList());
-            return ResponseEntity.ok(dtoList);
-        }
-    }
-    */
 
-    // Código del listado con páginas
-    @GetMapping("/productos")
-    public ResponseEntity<?> obtenerTodos(
-            @PageableDefault(size = 10, page = 0) Pageable pageable, // Indicamos que devolvemos una paginas e indicamos los campos por defecto
-            HttpServletRequest request // La petición http para tenerla en cuenta a la hora de procesar el enlace
-    ) {
+    // Versión sin páginas ni búsquedas PT 0
+//    /*
+//    @GetMapping("/productos")
+//    public ResponseEntity<?> obetenerTodos() {
+//        List<Producto> result = productoServicio.findAll();
+//        if (result.isEmpty()) {
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No hay productos registrados");
+//        } else {
+//            List<ProductoDTO> dtoList = result.stream().map(productoDTOConverter::convertToDto)
+//                    .collect(Collectors.toList());
+//            return ResponseEntity.ok(dtoList);
+//        }
+//    }
+//    */
+//
+
+    // Versión paginado PT 1
+//    // Código del listado con páginas
+//    @GetMapping("/productos")
+//    public ResponseEntity<?> obtenerTodos(
+//            @PageableDefault(size = 10, page = 0) Pageable pageable, // Indicamos que devolvemos una paginas e indicamos los campos por defecto
+//            HttpServletRequest request // La petición http para tenerla en cuenta a la hora de procesar el enlace
+//    ) {
+//
+//
+//        Page<Producto> result = productoServicio.findAll(pageable); // Paginas de producto
+//
+//        if (pageable.getPageNumber() > result.getTotalPages())
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No existe esa página o pagina superior al límete: " + result.getTotalPages());
+//
+//        if (result.isEmpty())
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No hay productos registrados");
+//        else {
+//
+//            // Creamos la pagina con los productos convertidos
+//            Page<ProductoDTO> dtoList = result.map(productoDTOConverter::convertToDto);
+//            // Cabecera de Link en base a la cabecera actual
+//            UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(request.getRequestURL().toString());
+//            // Deveolvemos con un encabezdo con enlaces creados y los resultados
+//            return ResponseEntity.ok().header("link", paginationLinksUtils.createLinkHeader(dtoList, uriBuilder))
+//                    .body(dtoList);
+//
+//        }
+//
+//    }
+//
+//
+    // Versión con busqueda PT 3
+//    /**
+//     * Lista todos los productos acotados por una busqueda de nombre
+//     * Es exactamente igual al naterior, por eso se puede fusionar
+//     *
+//     * @return 404 si no hay productos, 200 y lista de productos si hay uno o más
+//     */
+//    @ApiOperation(value = "Obtiene una lista de productos basados en un nombre", notes = "Obtiene una lista de productos")
+//    @ApiResponses(value = {
+//            @ApiResponse(code = 200, message = "OK", response = Producto.class),
+//            @ApiResponse(code = 404, message = "Not Found", response = ApiError.class),
+//            @ApiResponse(code = 500, message = "Internal Server Error", response = ApiError.class)
+//    })
+//
+//    @GetMapping(value = "/productos", params = "nombre")
+//    public ResponseEntity<?> buscarProductosPorNombre(
+//            @RequestParam("nombre") String txt,
+//            @PageableDefault(size = 10, page = 0) Pageable pageable,
+//            HttpServletRequest request) {
+//
+//        Page<Producto> result = productoServicio.findByNombre(txt, pageable);
+//
+//        if (result.isEmpty()) {
+//            throw new SearchProductoNoResultException(txt);
+//        } else {
+//
+//            Page<ProductoDTO> dtoList = result.map(productoDTOConverter::convertToDto);
+//            UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(request.getRequestURL().toString());
+//
+//            return ResponseEntity.ok().header("link", paginationLinksUtils.createLinkHeader(dtoList, uriBuilder))
+//                    .body(dtoList);
+//
+//        }
+//
+//    }
 
 
-        Page<Producto> result = productoServicio.findAll(pageable); // Paginas de producto
+    // Implementación con busquedas con Specificación y Predicados PT4
 
-        if (pageable.getPageNumber() > result.getTotalPages())
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No existe esa página o pagina superior al límete: " + result.getTotalPages());
-
-        if (result.isEmpty())
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No hay productos registrados");
-        else {
-
-            // Creamos la pagina con los productos convertidos
-            Page<ProductoDTO> dtoList = result.map(productoDTOConverter::convertToDto);
-            // Cabecera de Link en base a la cabecera actual
-            UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(request.getRequestURL().toString());
-            // Deveolvemos con un encabezdo con enlaces creados y los resultados
-            return ResponseEntity.ok().header("link", paginationLinksUtils.createLinkHeader(dtoList, uriBuilder))
-                    .body(dtoList);
-
-        }
-
-    }
-
-
-    /**
-     * Lista todos los productos acotados por una busqueda de nombre
-     * Es exactamente igual al naterior, por eso se puede fusionar
-     *
-     * @return 404 si no hay productos, 200 y lista de productos si hay uno o más
-     */
-    @ApiOperation(value = "Obtiene una lista de productos basados en un nombre", notes = "Obtiene una lista de productos")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK", response = Producto.class),
-            @ApiResponse(code = 404, message = "Not Found", response = ApiError.class),
-            @ApiResponse(code = 500, message = "Internal Server Error", response = ApiError.class)
-    })
-
-    @GetMapping(value = "/productos", params = "nombre")
-    public ResponseEntity<?> buscarProductosPorNombre(
-            @RequestParam("nombre") String txt,
+    @GetMapping(value = "/productos")
+    public ResponseEntity<?> buscarTodosConBusquedas(
+            @RequestParam("nombre") Optional<String> txt,
+            @RequestParam("precio") Optional<Float> precio,
             @PageableDefault(size = 10, page = 0) Pageable pageable,
             HttpServletRequest request) {
 
-        Page<Producto> result = productoServicio.findByNombre(txt, pageable);
+        Page<Producto> result = productoServicio.findByArgs(txt, precio, pageable);
 
         if (result.isEmpty()) {
-            throw new SearchProductoNoResultException(txt);
+            throw new SearchProductoNoResultException();
         } else {
 
             Page<ProductoDTO> dtoList = result.map(productoDTOConverter::convertToDto);
