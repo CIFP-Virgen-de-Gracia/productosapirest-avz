@@ -7,6 +7,7 @@ import com.joseluisgs.productosapirest.dto.coverter.ProductoDTOConverter;
 import com.joseluisgs.productosapirest.error.ApiError;
 import com.joseluisgs.productosapirest.error.ProductoBadRequestException;
 import com.joseluisgs.productosapirest.error.ProductoNotFoundException;
+import com.joseluisgs.productosapirest.error.SearchProductoNoResultException;
 import com.joseluisgs.productosapirest.modelos.Producto;
 import com.joseluisgs.productosapirest.servicios.CategoriaServicio;
 import com.joseluisgs.productosapirest.servicios.ProductoServicio;
@@ -99,6 +100,42 @@ public class ProductoController {
             // Cabecera de Link en base a la cabecera actual
             UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(request.getRequestURL().toString());
             // Deveolvemos con un encabezdo con enlaces creados y los resultados
+            return ResponseEntity.ok().header("link", paginationLinksUtils.createLinkHeader(dtoList, uriBuilder))
+                    .body(dtoList);
+
+        }
+
+    }
+
+
+    /**
+     * Lista todos los productos acotados por una busqueda de nombre
+     * Es exactamente igual al naterior, por eso se puede fusionar
+     *
+     * @return 404 si no hay productos, 200 y lista de productos si hay uno o más
+     */
+    @ApiOperation(value = "Obtiene una lista de productos basados en un nombre", notes = "Obtiene una lista de productos")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = Producto.class),
+            @ApiResponse(code = 404, message = "Not Found", response = ApiError.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = ApiError.class)
+    })
+
+    @GetMapping(value = "/productos", params = "nombre")
+    public ResponseEntity<?> buscarProductosPorNombre(
+            @RequestParam("nombre") String txt,
+            @PageableDefault(size = 10, page = 0) Pageable pageable,
+            HttpServletRequest request) {
+
+        Page<Producto> result = productoServicio.findByNombre(txt, pageable);
+
+        if (result.isEmpty()) {
+            throw new SearchProductoNoResultException(txt);
+        } else {
+
+            Page<ProductoDTO> dtoList = result.map(productoDTOConverter::convertToDto);
+            UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(request.getRequestURL().toString());
+
             return ResponseEntity.ok().header("link", paginationLinksUtils.createLinkHeader(dtoList, uriBuilder))
                     .body(dtoList);
 

@@ -14,14 +14,6 @@ public class GlobalControllerAdvice extends ResponseEntityExceptionHandler {
     // Producto no encotrado
     @ExceptionHandler(ProductoNotFoundException.class)
     public ResponseEntity<ApiError> handleProductoNoEncontrado(ProductoNotFoundException ex) {
-        /*
-        ApiError apiError = new ApiError();
-        apiError.setEstado(HttpStatus.NOT_FOUND);
-        apiError.setFecha(LocalDateTime.now());
-        apiError.setMensaje(ex.getMessage());
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(apiError);
-
-         */
         // Aplicamos el nuevo constructor indicado an APIREST
         ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(apiError);
@@ -30,14 +22,6 @@ public class GlobalControllerAdvice extends ResponseEntityExceptionHandler {
     // Lista de productos no encontradas
     @ExceptionHandler(ProductosNotFoundException.class)
     public ResponseEntity<ApiError> handleProductosNoEncontrado(ProductosNotFoundException ex) {
-        /*
-        ApiError apiError = new ApiError();
-        apiError.setEstado(HttpStatus.NOT_FOUND);
-        apiError.setFecha(LocalDateTime.now());
-        apiError.setMensaje(ex.getMessage());
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(apiError);
-
-         */
         // Aplicamos el nuevo constructor indicado an APIREST
         ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(apiError);
@@ -47,14 +31,6 @@ public class GlobalControllerAdvice extends ResponseEntityExceptionHandler {
     // Categoría no encotrada
     @ExceptionHandler(CategoriaNotFoundException.class)
     public ResponseEntity<ApiError> handleCategoriaNoEncontrado(CategoriaNotFoundException ex) {
-        /*
-        ApiError apiError = new ApiError();
-        apiError.setEstado(HttpStatus.NOT_FOUND);
-        apiError.setFecha(LocalDateTime.now());
-        apiError.setMensaje(ex.getMessage());
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(apiError);
-
-         */
         // Aplicamos el nuevo constructor indicado an APIREST
         ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(apiError);
@@ -62,38 +38,11 @@ public class GlobalControllerAdvice extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ProductoBadRequestException.class)
     public ResponseEntity<ApiError> handleProductoPeticionIncorrecta(ProductoBadRequestException ex) {
-        /*
-        ApiError apiError = new ApiError();
-        apiError.setEstado(HttpStatus.BAD_REQUEST);
-        apiError.setFecha(LocalDateTime.now());
-        apiError.setMensaje(ex.getMessage());
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiError);
-
-         */
         // Aplicamos el nuevo constructor indicado an APIREST
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiError);
     }
 
-
-    // Formato de Json a la hora de pasarle datos a la API
-    /* Control global
-    @ExceptionHandler(JsonMappingException.class)
-    public ResponseEntity<ApiError> handleJsonMappingException(JsonMappingException ex) {
-        /*
-        ApiError apiError = new ApiError();
-        apiError.setEstado(HttpStatus.BAD_REQUEST);
-        apiError.setFecha(LocalDateTime.now());
-        apiError.setMensaje(ex.getMessage());
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiError);
-
-         */
-    // Aplicamos el nuevo constructor indicado an APIREST
-    /*
-        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getMessage());
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiError);
-    }
-    */
 
     // Clase para controlar errores inesperados que no estamos teniendo en cuenta
     @Override
@@ -101,6 +50,13 @@ public class GlobalControllerAdvice extends ResponseEntityExceptionHandler {
                                                              HttpStatus status, WebRequest request) {
         ApiError apiError = new ApiError(status, ex.getMessage());
         return ResponseEntity.status(status).headers(headers).body(apiError);
+    }
+
+    @ExceptionHandler(SearchProductoNoResultException.class)
+    public ResponseEntity<ApiError> handleBusquedaSinResultado(SearchProductoNoResultException ex) {
+        // Aplicamos el nuevo constructor indicado an APIREST
+        ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(apiError);
     }
 
 }

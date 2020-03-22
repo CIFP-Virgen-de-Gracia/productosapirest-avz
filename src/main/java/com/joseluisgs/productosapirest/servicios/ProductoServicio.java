@@ -6,6 +6,8 @@ import com.joseluisgs.productosapirest.modelos.Producto;
 import com.joseluisgs.productosapirest.repositorios.ProductoRepositorio;
 import com.joseluisgs.productosapirest.upload.StorageService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
@@ -45,6 +47,12 @@ public class ProductoServicio extends BaseService<Producto, Long, ProductoReposi
 
         return this.save(nuevoProducto);
 
+    }
+
+    // Método del servicio para encontrar producto respecto al nombre
+    // De esta manera mapeamos el metodos del repositorio
+    public Page<Producto> findByNombre(String txt, Pageable pageable) {
+        return this.repositorio.findByNombreContainsIgnoreCase(txt, pageable);
     }
 
 
