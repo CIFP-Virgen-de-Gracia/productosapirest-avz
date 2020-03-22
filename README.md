@@ -10,6 +10,7 @@ Ejemplo de como hacer un API REST en Springboot con temas avanzados
 * 21/03/2020: Inicio del proyecto basado en: https://github.com/joseluisgs/productosapirest. Limpieza de cmentarios para dejarlo límpio
 * 21/03/2020: Paginación.
 * 22/03/2020: Query.
+* 22/03/2020: Representación alternativa XML. Negociado de contenido.
 
 
 ##### Ejecución
