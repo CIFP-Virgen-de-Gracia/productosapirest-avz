@@ -53,7 +53,14 @@ public class GlobalControllerAdvice extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(SearchProductoNoResultException.class)
-    public ResponseEntity<ApiError> handleBusquedaSinResultado(SearchProductoNoResultException ex) {
+    public ResponseEntity<ApiError> handleBusquedaProductoSinResultado(SearchProductoNoResultException ex) {
+        // Aplicamos el nuevo constructor indicado an APIREST
+        ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(apiError);
+    }
+
+    @ExceptionHandler(SearchCategoriaNoResultException.class)
+    public ResponseEntity<ApiError> handleBusquedaCategoriaSinResultado(SearchCategoriaNoResultException ex) {
         // Aplicamos el nuevo constructor indicado an APIREST
         ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(apiError);

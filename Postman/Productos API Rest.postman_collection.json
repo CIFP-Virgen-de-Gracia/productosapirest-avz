@@ -358,7 +358,7 @@
 			"response": []
 		},
 		{
-			"name": "Listar productos busqueda y paginado",
+			"name": "Listar productos busqueda nombre opcional y paginado",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -377,6 +377,78 @@
 						{
 							"key": "nombre",
 							"value": "ora"
+						},
+						{
+							"key": "size",
+							"value": "5"
+						},
+						{
+							"key": "page",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar productos busqueda  nombre y/o (opcionales) precio y paginado",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/productos?nombre=ora&precio=80&size=5&page=0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"productos"
+					],
+					"query": [
+						{
+							"key": "nombre",
+							"value": "ora"
+						},
+						{
+							"key": "precio",
+							"value": "80"
+						},
+						{
+							"key": "size",
+							"value": "5"
+						},
+						{
+							"key": "page",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar categorias busqueda nombre opcional y paginado",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/categorias?nombre=co&size=5&page=0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"categorias"
+					],
+					"query": [
+						{
+							"key": "nombre",
+							"value": "co"
 						},
 						{
 							"key": "size",
