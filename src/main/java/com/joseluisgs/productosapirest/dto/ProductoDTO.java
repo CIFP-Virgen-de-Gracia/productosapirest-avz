@@ -1,12 +1,15 @@
 package com.joseluisgs.productosapirest.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 
 // Los DTO nos sirven entre otras cosas para filtrar información de una o varias clases, podría ser similar a las vistas
+// Aplicamos lombok para hacer el DT0
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 // Solo tiene getter&setter
 public class ProductoDTO {
 
@@ -14,7 +17,6 @@ public class ProductoDTO {
     private String nombre;
     private float precio;
     private String imagen;
-    //private String categoriaNombre;
     private String categoria;
 
 }

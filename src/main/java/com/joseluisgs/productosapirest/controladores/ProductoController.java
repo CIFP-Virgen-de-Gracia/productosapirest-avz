@@ -3,6 +3,7 @@ package com.joseluisgs.productosapirest.controladores;
 
 import com.joseluisgs.productosapirest.dto.CreateProductoDTO;
 import com.joseluisgs.productosapirest.dto.ProductoDTO;
+import com.joseluisgs.productosapirest.dto.coverter.EditProductoDTO;
 import com.joseluisgs.productosapirest.dto.coverter.ProductoDTOConverter;
 import com.joseluisgs.productosapirest.error.ApiError;
 import com.joseluisgs.productosapirest.error.ProductoBadRequestException;
@@ -164,7 +165,10 @@ public class ProductoController {
             throw new SearchProductoNoResultException();
         } else {
 
-            Page<ProductoDTO> dtoList = result.map(productoDTOConverter::convertToDto);
+            // Con ModelMapper
+            // Page<ProductoDTO> dtoList = result.map(productoDTOConverter::convertToDto);
+            // Con Lombok @Builder de DTO
+            Page<ProductoDTO> dtoList = result.map(productoDTOConverter::convertProdutoToProductoDto);
             UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(request.getRequestURL().toString());
 
             return ResponseEntity.ok().header("link", paginationLinksUtils.createLinkHeader(dtoList, uriBuilder))
@@ -254,7 +258,8 @@ public class ProductoController {
             @ApiResponse(code = 500, message = "Internal Server Error", response = ApiError.class)
     })
     @PutMapping("/productos/{id}")
-    public Producto editarProducto(@RequestBody Producto editar, @PathVariable Long id) {
+    public Producto editarProducto(@RequestBody EditProductoDTO editar, //Producto editar Sin DTO
+                                   @PathVariable Long id) {
 
         // Comprobamos que los campos no sean vacios antes o el precio negativo
         if (editar.getNombre().isEmpty())
@@ -263,6 +268,8 @@ public class ProductoController {
             throw new ProductoBadRequestException("Precio", "Precio no puede ser negativo");
         else {
             // Se puede hacer con su asignaciones normales sin usar map, mira nuevo
+            // Ahora con el DTO lo que hacemos como lógica de negocio es que no pueda cambiarse la categoría
+            // Porque lo filtramos la categoría
             return productoServicio.findById(id).map(p -> {
                 p.setNombre(editar.getNombre());
                 p.setPrecio(editar.getPrecio());

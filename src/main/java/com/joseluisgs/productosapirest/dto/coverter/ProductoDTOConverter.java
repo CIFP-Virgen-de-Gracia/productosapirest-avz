@@ -29,6 +29,13 @@ public class ProductoDTOConverter {
     }
 
     // Recibe un producto y lo trasforma en productoDTO
+
+    /**
+     * Opción 1 con ModelMapper
+     *
+     * @param producto
+     * @return
+     */
     public ProductoDTO convertToDto(Producto producto) {
         return modelMapper.map(producto, ProductoDTO.class);
 
@@ -37,6 +44,21 @@ public class ProductoDTOConverter {
     // Para convertir un prodtctoDTO en producto
     public Producto convertToProducto(CreateProductoDTO createProductoDTO) {
         return modelMapper.map(createProductoDTO, Producto.class);
+    }
+
+    /**
+     * Opción 2 con Builder de Lombok
+     *
+     * @param producto
+     * @return
+     */
+    public ProductoDTO convertProdutoToProductoDto(Producto producto) {
+        return ProductoDTO.builder()
+                .nombre(producto.getNombre())
+                .imagen(producto.getImagen())
+                .categoria(producto.getCategoria().getNombre())
+                .id(producto.getId())
+                .build();
     }
 
 
