@@ -1,4 +1,4 @@
-package com.joseluisgs.productosapirest.dto.coverter;
+package com.joseluisgs.productosapirest.dto;
 
 import lombok.*;
 

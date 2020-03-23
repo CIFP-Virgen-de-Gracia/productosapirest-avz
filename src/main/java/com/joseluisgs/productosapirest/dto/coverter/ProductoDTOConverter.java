@@ -56,6 +56,7 @@ public class ProductoDTOConverter {
         return ProductoDTO.builder()
                 .nombre(producto.getNombre())
                 .imagen(producto.getImagen())
+                .precio(producto.getPrecio()) // Si no queremos algo lo quitamos de aqui
                 .categoria(producto.getCategoria().getNombre())
                 .id(producto.getId())
                 .build();

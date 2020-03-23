@@ -1,9 +1,10 @@
 package com.joseluisgs.productosapirest.controladores;
 
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.joseluisgs.productosapirest.dto.CreateProductoDTO;
+import com.joseluisgs.productosapirest.dto.EditProductoDTO;
 import com.joseluisgs.productosapirest.dto.ProductoDTO;
-import com.joseluisgs.productosapirest.dto.coverter.EditProductoDTO;
 import com.joseluisgs.productosapirest.dto.coverter.ProductoDTOConverter;
 import com.joseluisgs.productosapirest.error.ApiError;
 import com.joseluisgs.productosapirest.error.ProductoBadRequestException;
@@ -13,6 +14,7 @@ import com.joseluisgs.productosapirest.modelos.Producto;
 import com.joseluisgs.productosapirest.servicios.CategoriaServicio;
 import com.joseluisgs.productosapirest.servicios.ProductoServicio;
 import com.joseluisgs.productosapirest.utils.pagination.PaginationLinksUtils;
+import com.joseluisgs.productosapirest.views.ProductoViews;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
@@ -151,7 +153,7 @@ public class ProductoController {
 
 
     // Implementación con busquedas con Specificación y Predicados PT4
-
+    @JsonView(ProductoViews.DtoConPrecio.class) // Indicamos que la tranformación sea con JSON View
     @GetMapping(value = "/productos")
     public ResponseEntity<?> buscarTodosConBusquedas(
             @RequestParam("nombre") Optional<String> txt,
@@ -166,9 +168,9 @@ public class ProductoController {
         } else {
 
             // Con ModelMapper
-            // Page<ProductoDTO> dtoList = result.map(productoDTOConverter::convertToDto);
+            Page<ProductoDTO> dtoList = result.map(productoDTOConverter::convertToDto);
             // Con Lombok @Builder de DTO
-            Page<ProductoDTO> dtoList = result.map(productoDTOConverter::convertProdutoToProductoDto);
+            //Page<ProductoDTO> dtoList = result.map(productoDTOConverter::convertProdutoToProductoDto);
             UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(request.getRequestURL().toString());
 
             return ResponseEntity.ok().header("link", paginationLinksUtils.createLinkHeader(dtoList, uriBuilder))

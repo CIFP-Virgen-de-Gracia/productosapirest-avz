@@ -11,7 +11,7 @@ Ejemplo de como hacer un API REST en Springboot con temas avanzados
 * 21/03/2020: Paginación.
 * 22/03/2020: Query.
 * 22/03/2020: Representación alternativa XML. Negociado de contenido.
-* 23/03/2020: Diseño de datos complejos: DTO
+* 23/03/2020: Diseño de datos complejos: DTO, JSON View, 
 
 
 ##### Ejecución
