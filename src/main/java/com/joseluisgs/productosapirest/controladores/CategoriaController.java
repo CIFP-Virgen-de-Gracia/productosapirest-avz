@@ -38,6 +38,12 @@ public class CategoriaController {
      *
      * @return 404 si no hay categorías, 200 y lista de de categorías
      */
+    @ApiOperation(value = "Obtiene una lista de productos", notes = "Obtiene una lista de productos")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = Categoria.class),
+            @ApiResponse(code = 404, message = "Not Found", response = ApiError.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = ApiError.class)
+    })
     @GetMapping("/categorias")
     public ResponseEntity<?> obetenerTodss() {
         List<Categoria> result = categoriaServicio.findAll();

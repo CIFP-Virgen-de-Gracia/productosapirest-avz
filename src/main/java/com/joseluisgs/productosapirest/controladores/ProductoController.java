@@ -171,6 +171,7 @@ public class ProductoController {
             //Page<ProductoDTO> dtoList = result.map(productoDTOConverter::convertToDto);
             // Con Lombok @Builder de DTO
             Page<ProductoDTO> dtoList = result.map(productoDTOConverter::convertProdutoToProductoDto);
+
             UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(request.getRequestURL().toString());
 
             return ResponseEntity.ok().header("link", paginationLinksUtils.createLinkHeader(dtoList, uriBuilder))

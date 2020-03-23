@@ -15,7 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@EntityListeners(AuditingEntityListener.class)
+@EntityListeners(AuditingEntityListener.class) // Para la auditoría
 public class Pedido {
 
 
@@ -42,7 +42,8 @@ public class Pedido {
     }
 
     /**
-     * Métodos helper
+     * Métodos helper, por la bidireccionalidad, es decir por ambas vías
+     * Si asociados una linea de pedido a un pedido o quitar
      */
 
     public void addLineaPedido(LineaPedido lp) {
