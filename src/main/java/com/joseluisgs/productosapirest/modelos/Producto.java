@@ -1,20 +1,25 @@
 package com.joseluisgs.productosapirest.modelos;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 // Nos hace automaticamente:  A shortcut for @ToString, @EqualsAndHashCode, @Getter on all fields, and @Setter on all non-final fields, and @RequiredArgsConstructor
 
+@Builder // patron builder
 @NoArgsConstructor
 @AllArgsConstructor
 //Constructors made to order: Generates constructors that take no arguments, one argument per final / non-nullfield, or one argument for every field.
 
 @Entity // JPA, entidad, se llamará igual salvo que la cambiemos
+
+//Comentamos para hacerlo de la opcion 2
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Producto.class)
 public class Producto {
 
     @Id  // Es el campo ID
@@ -39,5 +44,13 @@ public class Producto {
     @JoinColumn(name = "categoria_id") // Así la vamos a llamar en la BB.DD
     @ApiModelProperty(value = "Categoría del producto", dataType = "Categoria", position = 5)
     private Categoria categoria;
+
+    @JsonBackReference //Comentamos para la primera opcion, descomentamos con la segunda
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+//	@ManyToMany(mappedBy="productos", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "productos")
+    @Builder.Default
+    private Set<Lote> lotes = new HashSet<>();
 
 }

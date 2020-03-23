@@ -32,17 +32,17 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-                  "raw": "http://localhost:8080/api/productos/4",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "8080",
-                  "path": [
-                    "api",
-                    "productos",
-                    "4"
-                  ]
+					"raw": "http://localhost:8080/api/productos/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"productos",
+						"4"
+					]
 				}
 			},
 			"response": []
@@ -60,8 +60,27 @@
 					}
 				],
 				"body": {
-					"mode": "raw",
-					"raw": "{\n        \"nombre\": \"Producto nuevo\",\n        \"precio\": 99.99,\n        \"categoriaId\": 2\n}",
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "nuevo",
+							"description": "Fichero Json con los datos del nuevo producto producto",
+							"type": "file",
+							"src": "/Users/link/Proyectos/productosapirest/Postman/nuevoproducto.json"
+						},
+						{
+							"key": "file",
+							"description": "Imagen del nuevo producto",
+							"type": "file",
+							"src": "/Users/link/Proyectos/productosapirest/Postman/nuevoproducto.jpg"
+						},
+						{
+							"key": "",
+							"type": "file",
+							"src": [],
+							"disabled": true
+						}
+					],
 					"options": {
 						"raw": {
 							"language": "json"
@@ -125,143 +144,409 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
-              "url": {
-                "raw": "http://localhost:8080/api/productos/5",
-                "protocol": "http",
-                "host": [
-                  "localhost"
-                ],
-                "port": "8080",
-                "path": [
-                  "api",
-                  "productos",
-                  "5"
-                ]
-              }
-            },
-          "response": []
-        },
-      {
-        "name": "Listar categorias",
-        "request": {
-          "method": "GET",
-          "header": [],
-          "url": {
-            "raw": "http://localhost:8080/api/categorias",
-            "protocol": "http",
-            "host": [
-              "localhost"
-            ],
-            "port": "8080",
-            "path": [
-              "api",
-              "categorias"
-            ]
-          }
-        },
-        "response": []
-      },
-      {
-        "name": "Obtener categoría",
-        "request": {
-          "method": "GET",
-          "header": [],
-          "url": {
-            "raw": "http://localhost:8080/api/categorias/1",
-            "protocol": "http",
-            "host": [
-              "localhost"
-            ],
-            "port": "8080",
-            "path": [
-              "api",
-              "categorias",
-              "1"
-            ]
-          }
-        },
-        "response": []
-      },
-      {
-        "name": "Nueva categoría",
-        "request": {
-          "method": "POST",
-          "header": [],
-          "body": {
-            "mode": "raw",
-            "raw": "{\n\t\"nombre\": \"prueba\"\n}",
-            "options": {
-              "raw": {
-                "language": "json"
-              }
-            }
-          },
-          "url": {
-            "raw": "http://localhost:8080/api/categorias",
-            "protocol": "http",
-            "host": [
-              "localhost"
-            ],
-            "port": "8080",
-            "path": [
-              "api",
-              "categorias"
-            ]
-          }
-        },
-        "response": []
-      },
-      {
-        "name": "Editar categoría",
-        "request": {
-          "method": "PUT",
-          "header": [],
-          "body": {
-            "mode": "raw",
-            "raw": "{\n\t\"nombre\": 99\n}",
-            "options": {
-              "raw": {
-                "language": "json"
-              }
-            }
-          },
-          "url": {
-            "raw": "http://localhost:8080/api/categorias/1",
-            "protocol": "http",
-            "host": [
-              "localhost"
-            ],
-            "port": "8080",
-            "path": [
-              "api",
-              "categorias",
-              "1"
-            ]
-          }
-        },
-        "response": []
-      },
-      {
-        "name": "Borrar categoria",
-        "request": {
-          "method": "DELETE",
-          "header": [],
-          "url": {
-            "raw": "http://localhost:8080/api/categorias/1",
-            "protocol": "http",
-            "host": [
-              "localhost"
-            ],
-            "port": "8080",
-            "path": [
-              "api",
-              "categorias",
-              "1"
-            ]
-          }
-        },
-        "response": []
-      }
-    ],
+				"url": {
+					"raw": "http://localhost:8080/api/productos/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"productos",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar categorias",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/categorias",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"categorias"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener categoría",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/categorias/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"categorias",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Nueva categoría",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\": \"prueba\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/categorias",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"categorias"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar categoría",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\": 99\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/categorias/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"categorias",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar categoria",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/categorias/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"categorias",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener Imagen Producto",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/files/1584786433311_nuevoproducto.jpg",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"files",
+						"1584786433311_nuevoproducto.jpg"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar productos paginado",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/productos?page=1&size=5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"productos"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "size",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar productos busqueda",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/productos?nombre=ora",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"productos"
+					],
+					"query": [
+						{
+							"key": "nombre",
+							"value": "ora"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar productos busqueda nombre opcional y paginado",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/productos?nombre=ora&size=5&page=0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"productos"
+					],
+					"query": [
+						{
+							"key": "nombre",
+							"value": "ora"
+						},
+						{
+							"key": "size",
+							"value": "5"
+						},
+						{
+							"key": "page",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar productos busqueda  nombre y/o (opcionales) precio y paginado",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/productos?nombre=ora&precio=80&size=5&page=0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"productos"
+					],
+					"query": [
+						{
+							"key": "nombre",
+							"value": "ora"
+						},
+						{
+							"key": "precio",
+							"value": "80"
+						},
+						{
+							"key": "size",
+							"value": "5"
+						},
+						{
+							"key": "page",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar categorias busqueda nombre opcional y paginado",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/categorias?nombre=co&size=5&page=0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"categorias"
+					],
+					"query": [
+						{
+							"key": "nombre",
+							"value": "co"
+						},
+						{
+							"key": "size",
+							"value": "5"
+						},
+						{
+							"key": "page",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar productos busqueda  nombre y/o (opcionales) precio y paginado XML",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/xml",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/productos?nombre=ora&precio=80&size=5&page=0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"productos"
+					],
+					"query": [
+						{
+							"key": "nombre",
+							"value": "ora"
+						},
+						{
+							"key": "precio",
+							"value": "80"
+						},
+						{
+							"key": "size",
+							"value": "5"
+						},
+						{
+							"key": "page",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar pedidos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/pedidos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pedidos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar lotes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/lotes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"lotes"
+					]
+				}
+			},
+			"response": []
+		}
+	],
 	"protocolProfileBehavior": {}
 }
