@@ -66,4 +66,11 @@ public class GlobalControllerAdvice extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(apiError);
     }
 
+    @ExceptionHandler(PedidoNotFoundException.class)
+    public ResponseEntity<ApiError> handleBusquedaPedidoSinResultado(PedidoNotFoundException ex) {
+        // Aplicamos el nuevo constructor indicado an APIREST
+        ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(apiError);
+    }
+
 }

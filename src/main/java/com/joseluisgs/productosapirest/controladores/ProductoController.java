@@ -60,7 +60,7 @@ public class ProductoController {
     // Indicamos sobre que puerto u orignes dejamos que actue (navegador) En nuestro caso no habría problemas
     // Pero es bueno tenerlo en cuenta si tenemos en otro serviror una app en angular o similar
     // Pero es inviable para API consumida por muchos terceros. // Debes probar con un cliente desde ese puerto
-    // Mejor hacer un filtro, ver MyConfig.java
+    // Mejor hacer un filtro, ver MiConfiguracion.java
     @ApiOperation(value = "Obtiene una lista de productos", notes = "Obtiene una lista de productos")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = Producto.class),
