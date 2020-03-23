@@ -1,5 +1,7 @@
 package com.joseluisgs.productosapirest.modelos;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
@@ -16,6 +18,7 @@ import java.util.Set;
 //Constructors made to order: Generates constructors that take no arguments, one argument per final / non-nullfield, or one argument for every field.
 
 @Entity // JPA, entidad, se llamará igual salvo que la cambiemos
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Producto.class)
 public class Producto {
 
     @Id  // Es el campo ID
