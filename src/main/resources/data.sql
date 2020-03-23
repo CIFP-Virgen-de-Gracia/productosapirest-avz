@@ -54,3 +54,24 @@ insert into linea_pedido (id, producto_id, precio, cantidad, pedido_id) values (
 insert into linea_pedido (id, producto_id, precio, cantidad, pedido_id) values (7, 13, 38, 5, 3);
 insert into linea_pedido (id, producto_id, precio, cantidad, pedido_id) values (8, 22, 72, 1, 3);
 
+
+insert into lote (id, nombre) values (1, 'Lote 1');
+insert into lote_productos (lote_id, producto_id) values (1, 1);
+insert into lote_productos (lote_id, producto_id) values (1, 2);
+insert into lote_productos (lote_id, producto_id) values (1, 3);
+insert into lote_productos (lote_id, producto_id) values (1, 4);
+
+insert into lote (id, nombre) values (2, 'Lote 2');
+insert into lote_productos (lote_id, producto_id) values (2, 1);
+insert into lote_productos (lote_id, producto_id) values (2, 11);
+insert into lote_productos (lote_id, producto_id) values (2, 12);
+insert into lote_productos (lote_id, producto_id) values (2, 13);
+insert into lote_productos (lote_id, producto_id) values (2, 14);
+
+insert into lote (id, nombre) values (3, 'Lote 3');
+insert into lote_productos (lote_id, producto_id) values (3, 21);
+insert into lote_productos (lote_id, producto_id) values (3, 22);
+insert into lote_productos (lote_id, producto_id) values (3, 23);
+insert into lote_productos (lote_id, producto_id) values (3, 24);
+
+

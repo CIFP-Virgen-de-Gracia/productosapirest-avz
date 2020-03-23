@@ -73,4 +73,18 @@ public class GlobalControllerAdvice extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(apiError);
     }
 
+    @ExceptionHandler(LoteNotFoundException.class)
+    public ResponseEntity<ApiError> handleLotePedidoSinResultado(LoteNotFoundException ex) {
+        // Aplicamos el nuevo constructor indicado an APIREST
+        ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(apiError);
+    }
+
+    @ExceptionHandler(LoteCreateException.class)
+    public ResponseEntity<ApiError> handleLoteCreacionIncorrecta(LoteCreateException ex) {
+        // Aplicamos el nuevo constructor indicado an APIREST
+        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiError);
+    }
+
 }

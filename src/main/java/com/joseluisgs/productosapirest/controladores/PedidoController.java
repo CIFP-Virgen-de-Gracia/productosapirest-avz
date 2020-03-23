@@ -30,7 +30,7 @@ public class PedidoController {
 
 
     // Método GET
-    @ApiOperation(value = "Obtiene una lista de productos", notes = "Obtiene una lista de productos")
+    @ApiOperation(value = "Obtiene una lista de pedidos", notes = "Obtiene una lista de pedidos")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = Pedido.class),
             @ApiResponse(code = 404, message = "Not Found", response = ApiError.class),

@@ -1,12 +1,11 @@
 package com.joseluisgs.productosapirest.modelos;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 // Nos hace automaticamente:  A shortcut for @ToString, @EqualsAndHashCode, @Getter on all fields, and @Setter on all non-final fields, and @RequiredArgsConstructor
@@ -41,5 +40,13 @@ public class Producto {
     @JoinColumn(name = "categoria_id") // Así la vamos a llamar en la BB.DD
     @ApiModelProperty(value = "Categoría del producto", dataType = "Categoria", position = 5)
     private Categoria categoria;
+
+    //@JsonBackReference // Lote
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+//	@ManyToMany(mappedBy="productos", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "productos")
+    @Builder.Default
+    private Set<Lote> lotes = new HashSet<>();
 
 }
