@@ -1,7 +1,6 @@
 package com.joseluisgs.productosapirest.modelos;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
@@ -18,7 +17,9 @@ import java.util.Set;
 //Constructors made to order: Generates constructors that take no arguments, one argument per final / non-nullfield, or one argument for every field.
 
 @Entity // JPA, entidad, se llamará igual salvo que la cambiemos
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Producto.class)
+
+//Comentamos para hacerlo de la opcion 2
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Producto.class)
 public class Producto {
 
     @Id  // Es el campo ID
@@ -44,7 +45,7 @@ public class Producto {
     @ApiModelProperty(value = "Categoría del producto", dataType = "Categoria", position = 5)
     private Categoria categoria;
 
-    //@JsonBackReference // Lote
+    @JsonBackReference //Comentamos para la primera opcion, descomentamos con la segunda
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
 //	@ManyToMany(mappedBy="productos", fetch = FetchType.EAGER)

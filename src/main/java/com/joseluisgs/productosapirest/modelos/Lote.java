@@ -1,7 +1,6 @@
 package com.joseluisgs.productosapirest.modelos;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,7 +16,9 @@ import java.util.Set;
 @Builder
 @Entity
 // Muchos a muchos
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Lote.class)
+
+//Comentamos para hacerlo de la opcion 2
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Lote.class)
 public class Lote {
 
     @Id
@@ -26,7 +27,7 @@ public class Lote {
 
     private String nombre;
 
-    //@JsonManagedReference
+    @JsonManagedReference // Comentamos para la primera opcion, descomentamos con la segunda
     //@ManyToMany(fetch = FetchType.EAGER)
     @ManyToMany
     @JoinTable(
